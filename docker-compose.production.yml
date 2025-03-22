@@ -1,27 +1,27 @@
 version: '3'
 
 volumes:
-  pg_data_production:
-  static_volume:
+  pg_data:
+  static:
   media:
 
 services:
   db:
     image: postgres:13
     volumes:
-      - pg_data_production:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
   backend:
     image: ddimani/kittygram_backend
     env_file: .env
     volumes:
-      - media:/backend_media
-      - static_volume:/backend_static
+      - static:/static
+      - media:/app/media
   frontend:
     env_file: .env
     image: ddimani/kittygram_frontend
-    command: cp -r /app/build/. /frontend_static/
+    command: cp -r /app/build/. /static/
     volumes:
-      - static:/frontend_static
+      - static:/static
   gateway:
     image: ddimani/kittygram_gateway
     env_file: .env
@@ -29,4 +29,4 @@ services:
       - 9000:80
     volumes:
       - static:/static
-      - media:/backend_media
+      - media:/media

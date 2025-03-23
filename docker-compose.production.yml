@@ -18,14 +18,12 @@ services:
       - static:/static
       - media:/app/media
   frontend:
-    env_file: .env
     image: ddimani/kittygram_frontend
     command: cp -r /app/build/. /static/
     volumes:
       - static:/static
   gateway:
     image: ddimani/kittygram_gateway
-    env_file: .env
     ports:
       - 9000:80
     volumes:

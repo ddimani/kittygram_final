@@ -13,12 +13,16 @@ services:
   backend:
     build: ./backend/
     env_file: .env
+    expose:
+      - "9000"
     volumes:
       - static:/static
       - media:/app/media
   frontend:
     build: ./frontend/
     command: cp -r /app/build/. /static/
+    expose:
+      - "8000"
     volumes:
       - static:/static
   gateway:
